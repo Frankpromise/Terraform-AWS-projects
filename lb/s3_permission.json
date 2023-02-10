@@ -1,0 +1,13 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": "arn:aws:iam::266584084877:root"
+            },
+            "Action": "s3:PutObject",
+            "Resource": "arn:aws:s3:::mtc-s3-logs-elb/awslogs/*/*"
+    }
+    ]
+}
