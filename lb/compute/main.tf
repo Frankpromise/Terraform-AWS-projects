@@ -43,6 +43,17 @@ resource "aws_instance" "mtc_node" {
   root_block_device {
     volume_size = var.vol_size
   }
+  provisioner "file" {
+    source      = var.source_path
+    destination = var.destination
+  }
+
+  connection {
+    type        = "ssh"
+    host        = self.public_ip
+    user        = "ubuntu"
+    private_key = file(var.private_key_path)
+  }
 }
 
 resource "aws_lb_target_group_attachment" "mtc_tg_attach" {
@@ -51,3 +62,4 @@ resource "aws_lb_target_group_attachment" "mtc_tg_attach" {
   target_id        = aws_instance.mtc_node[count.index].id
   port             = var.tg_port
 }
+

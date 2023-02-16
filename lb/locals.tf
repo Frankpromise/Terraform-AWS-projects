@@ -1,5 +1,6 @@
 locals {
   vpc_cidr = "10.123.0.0/16"
+
 }
 
 locals {
@@ -32,8 +33,16 @@ locals {
           protocol    = "tcp"
           cidr_blocks = [local.vpc_cidr]
         }
+
+        custom_tcp = {
+          from        = 6443
+          to          = 6443
+          protocol    = "tcp"
+          cidr_blocks = ["0.0.0.0/0"]
+        }
       }
     }
+
     rds = {
       name        = "rds_sg"
       description = "rds_access"
@@ -46,5 +55,6 @@ locals {
         }
       }
     }
+
   }
 }

@@ -1,13 +1,16 @@
 module "compute" {
   source              = "./compute"
   instance_count      = 3
-  instance_type       = "t3.micro"
+  instance_type       = "t3.medium"
   vol_size            = 10
   public_sg           = module.networking.public_sg
   public_subnets      = module.networking.public_subnets
   key_name            = "my-key"
   public_key_path     = "~/.ssh/my-key.pub"
+  private_key_path    = "~/.ssh/my-key"
   user_data_path      = "${path.root}/install.sh"
+  source_path         = "${path.root}/scripts"
+  destination         = "/home/ubuntu"
   lb_target_group_arn = module.loadbalancing.lb_target_group_arn
   tg_port             = 80
 }
@@ -31,8 +34,8 @@ module "loadbalancing" {
   public_sg              = module.networking.public_sg
   public_subnets         = module.networking.public_subnets
   vpc_id                 = module.networking.vpc_id
-  bucket = module.storage.bucket
-  name = "awslogs"
+  bucket                 = module.storage.bucket
+  name                   = "awslogs"
   tg_port                = 80
   tg_protocol            = "HTTP"
   lb_healthy_threshold   = 2
@@ -47,7 +50,11 @@ module "loadbalancing" {
 }
 
 module "storage" {
-  source      = "./storage"
-  bucket_name = "mtc-lb-tg-${substr(uuid(), 0, 3)}"
+  source             = "./storage"
+  bucket_name        = "mtc-lb-tg-${substr(uuid(), 0, 3)}"
   bucket_policy_name = "aws_s3_bucket.b.id"
 }
+
+
+
+  

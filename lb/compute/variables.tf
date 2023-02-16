@@ -42,3 +42,7 @@ variable "lb_target_group_arn" {
 variable "tg_port" {
 
 }
+
+variable "source_path" {}
+variable "destination" {}
+variable "private_key_path" {}

@@ -1,9 +1,9 @@
 #-----storage/main.tf
 
 resource "aws_s3_bucket" "b" {
-  bucket = var.bucket_name
-   acl           = "log-delivery-write"
-   force_destroy = true
+  bucket        = var.bucket_name
+  acl           = "log-delivery-write"
+  force_destroy = true
 
   tags = {
     Name = "My bucket"

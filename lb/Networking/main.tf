@@ -65,6 +65,9 @@ resource "aws_internet_gateway" "mtc_internet_gateway" {
   }
 }
 
+
+
+
 resource "aws_route_table" "mtc_public_rt" {
   vpc_id = aws_vpc.mtc_vpc.id
 
